@@ -1,7 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://rrcechbbdyfrsmqpbanl.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyY2VjaGJiZHlmcnNtcXBiYW5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM3NTksImV4cCI6MjA4MzQ3OTc1OX0.xgSX5_vGsTonZFHZefXhIVL8cIYQv8exO1tAYbvEmyc';
+// No navegador, process.env não existe da mesma forma que no Node.js
+// Usamos uma verificação segura para evitar o erro de "process is not defined"
+const getEnv = (key: string, fallback: string) => {
+  try {
+    // Tenta acessar via import.meta.env (padrão Vite/Moderno) ou retorna o fallback
+    // @ts-ignore
+    return (import.meta.env && import.meta.env[key]) || fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const supabaseUrl = getEnv('VITE_SUPABASE_URL', 'https://rrcechbbdyfrsmqpbanl.supabase.co');
+const supabaseAnonKey = getEnv('VITE_SUPABASE_ANON_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyY2VjaGJiZHlmcnNtcXBiYW5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5MDM3NTksImV4cCI6MjA4MzQ3OTc1OX0.xgSX5_vGsTonZFHZefXhIVL8cIYQv8exO1tAYbvEmyc');
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
