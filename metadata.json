@@ -1,0 +1,8 @@
+{
+  "name": "Evolution CRM Chat",
+  "description": "A high-end CRM and chat interface integrated with Evolution API and Supabase for customer management and real-time messaging.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
